@@ -2,8 +2,8 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "command": "${workspaceFolder}${pathSeparator}src${pathSeparator}node_modules${pathSeparator}.bin${pathSeparator}astro dev",
-      "cwd": "${workspaceFolder}${pathSeparator}src",
+      "command": "${workspaceFolder}${pathSeparator}core${pathSeparator}node_modules${pathSeparator}.bin${pathSeparator}astro dev",
+      "cwd": "${workspaceFolder}${pathSeparator}core",
       "name": "Development server",
       "request": "launch",
       "type": "node-terminal"
