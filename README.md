@@ -5,6 +5,35 @@
 
 New and improved version of our website
 
+## Getting Started
+
+1. In the `core` directory, create a new environment file called `.env.local`.
+2. Navigate to <https://github.com/settings/developers> and create a new OAuth app.
+    - Set the authorization callback URL to `http://localhost:3000/api/auth/callback/github`.
+3. Add your app's client id and secret and the following variable to your `.env.local` file:
+
+    ```yaml
+    GITHUB_APP_CLIENT_ID=xxx
+    GITHUB_APP_SECRET=xxx
+    NEXTAUTH_SECRET=xxx
+    ```
+
+    For the `NEXTAUTH_SECRET`, you can generate a random value in the command line via this `openssl` command:
+
+    ```shell
+    openssl rand -base64 32`
+    ```
+
+4. Finally, install all the dependencies, and start running the app. **Make sure you are in the `core` directory!**
+
+    ```shell
+    npm install
+    # then
+    npm run dev
+    ```
+
+    Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+
 ## 🧞 Commands
 
 All commands are run from the `/core` folder of the project, from a terminal:
