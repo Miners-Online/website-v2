@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { Box, Button, Text, ActionMenu, ActionList, Avatar, Header, Spinner, useTheme } from "@primer/react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
+import Image from 'next/image'
 
 interface LayoutProps {
   children: ReactNode;
@@ -38,6 +39,12 @@ function Navigation() {
             fontSize: 2,
           }}
         >
+          <Image
+            src="/favicon.svg"
+            alt=""
+            width={32}
+            height={32}
+          />
           <span>Miners Online</span>
         </Header.Link>
       </Header.Item>
