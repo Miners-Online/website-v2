@@ -21,7 +21,7 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <>
       <Navigation />
-      <Box p={3}>{children}</Box>
+      {children}
     </>
   );
 }
@@ -91,12 +91,18 @@ function Authentication() {
                 </ActionList.Item>
                 <ActionList.Divider />
                 <ActionList.Item
-                  onSelect={() => setColorMode("night")}
+                  onSelect={() => {
+                    setColorMode("night");
+                    document.body.setAttribute("data-theme", "dark");
+                  }}
                 >
                   Set dark mode
                 </ActionList.Item>
                 <ActionList.Item
-                  onSelect={() => setColorMode("day")}
+                  onSelect={() => {
+                    setColorMode("day");
+                    document.body.setAttribute("data-theme", "light");
+                  }}
                 >
                   Set light mode
                 </ActionList.Item>

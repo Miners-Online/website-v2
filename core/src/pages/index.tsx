@@ -1,9 +1,12 @@
 import Head from "next/head";
 import { useSession } from "next-auth/react";
 import { Box } from "@primer/react";
+import Markdown from "react-markdown";
+import remarkGfm from 'remark-gfm'
 
 export default function Home() {
   const { data } = useSession();
+  const markdown = `# AAAAAAAAAAA Just a link: www.example.com.`
 
   return (
     <>
@@ -28,6 +31,10 @@ export default function Home() {
           {data ? JSON.stringify(data, null, 2) : "Sign in to get started!"}
         </Box>
       </main>
+
+      <div className='markdown-body'>
+        <Markdown remarkPlugins={[remarkGfm]}>{markdown}</Markdown>
+      </div>
     </>
   );
 }
