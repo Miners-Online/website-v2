@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
-import NextLink from "next/link";
-import { Box, Button, Text, ActionMenu, ActionList, Avatar, Header } from "@primer/react";
+import { Box, Button, Text, ActionMenu, ActionList, Avatar, Header, Spinner, useTheme } from "@primer/react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 
@@ -31,99 +30,95 @@ function Navigation() {
   const router = useRouter();
   const activePath = router.pathname;
   return (
-    <Box
-      as="nav"
-      display="flex"
-      p={3}
-      height={56}
-      alignItems="center"
-      justifyContent={"space-between"}
-      width="100%"
-      position="sticky"
-      top="0"
-      sx={{
-        borderBottom: "1px solid",
-        borderColor: "border.muted",
-        bg: "canvas.default",
-      }}
-    >
-      <Box as="ul" display="flex" sx={{ alignItems: "center" }}>
-        <Box as="li" sx={{ listStyle: "none" }}>
-          <Text
-            fontSize={2}
-            fontWeight="bold"
-            color="fg.default"
-            pr={3}
-            mr={1}
-            sx={{ borderRight: "1px solid", borderColor: "border.muted" }}
-          >
-            Miners Online
-          </Text>
-        </Box>
+    <Header>
+      <Header.Item>
+        <Header.Link
+          href={activePath}
+          sx={{
+            fontSize: 2,
+          }}
+        >
+          <span>Miners Online</span>
+        </Header.Link>
+      </Header.Item>
         {pages.map((page) => (
-          <Box as="li" sx={{ listStyle: "none" }} key={page.path}>
-            <NextLink href={page.path} passHref legacyBehavior>
-              <Button
-                variant="invisible"
-                as="a"
-                sx={{
-                  color: activePath === page.path ? "fg.accent" : "fg.default",
-                }}
-              >
-                {page.name}
-              </Button>
-            </NextLink>
-          </Box>
+          <Header.Item>
+            <Header.Link
+              href={page.path}
+            >
+              {page.name}
+            </Header.Link>
+          </Header.Item>
         ))}
-      </Box>
-      <Authentication />
-    </Box>
+      <Header.Item full></Header.Item>
+      <Authentication/>
+    </Header>
   );
 }
 
 function Authentication() {
   const { data: session, status } = useSession();
+  const { setColorMode } = useTheme();
 
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return <Spinner/>;
   }
 
   if (session) {
     return (
       <>
-        <ActionMenu>
-          <ActionMenu.Anchor>
-            <Avatar size={35} src={session.user?.image || ""} />
-          </ActionMenu.Anchor>
-          <ActionMenu.Overlay width="medium">
-            <ActionList>
-              <ActionList.Item onSelect={() => window.location.href=`${session.user?.provider_data?.profile_page}`}>
-                <Box> {/* style="width: 20%; float:left"> */}
-                  <Avatar src={session.user?.image || ""} />
-                </Box>
+        <Header.Item
+          sx={{
+            mr: 0,
+          }}
+        >
+          <ActionMenu>
+            <ActionMenu.Anchor>
+              <Avatar size={35} src={session.user?.image || ""} />
+            </ActionMenu.Anchor>
+            <ActionMenu.Overlay width="medium">
+              <ActionList>
+                <ActionList.Item onSelect={() => window.location.href=`${session.user?.provider_data?.profile_page}`}>
+                  <Box> {/* style="width: 20%; float:left"> */}
+                    <Avatar src={session.user?.image || ""} />
+                  </Box>
 
-                <Box> {/* style="width: 80%; float:right"> */}
-                  <b>{session.user?.provider_data?.user_name}</b>
-                  <br/>
-                  <Text>{session.user?.name}</Text>
-                </Box>
-              </ActionList.Item>
-              <ActionList.Divider />
-              <ActionList.Item
-                onSelect={() => signOut()}
-              >
-                Sign out
-              </ActionList.Item>
-            </ActionList>
-          </ActionMenu.Overlay>
-        </ActionMenu>
+                  <Box> {/* style="width: 80%; float:right"> */}
+                    <b>{session.user?.provider_data?.user_name}</b>
+                    <br/>
+                    <Text>{session.user?.name}</Text>
+                  </Box>
+                </ActionList.Item>
+                <ActionList.Divider />
+                <ActionList.Item
+                  onSelect={() => setColorMode("night")}
+                >
+                  Set dark mode
+                </ActionList.Item>
+                <ActionList.Item
+                  onSelect={() => setColorMode("day")}
+                >
+                  Set light mode
+                </ActionList.Item>
+                <ActionList.Divider />
+                <ActionList.Item
+                  onSelect={() => signOut()}
+                >
+                  Sign out
+                </ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </Header.Item>
       </>
     );
   }
 
   return (
-    <Button variant="invisible" onClick={() => signIn("github")}>
-      Sign in
-    </Button>
+    <Header.Item>
+      <Button variant="invisible" onClick={() => signIn("github")}>
+        Sign in
+      </Button>
+    </Header.Item>
   );
 }
