@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import NextLink from "next/link";
-import { Box, Button, Text } from "@primer/react";
+import { Box, Button, Text, ActionMenu, ActionList, Avatar, Header } from "@primer/react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 
@@ -90,9 +90,34 @@ function Authentication() {
 
   if (session) {
     return (
-      <Button variant="invisible" onClick={() => signOut()}>
-        Sign out
-      </Button>
+      <>
+        <ActionMenu>
+          <ActionMenu.Anchor>
+            <Avatar size={35} src={session.user?.image || ""} />
+          </ActionMenu.Anchor>
+          <ActionMenu.Overlay width="medium">
+            <ActionList>
+              <ActionList.Item onSelect={() => window.location.href=`${session.user?.provider_data?.profile_page}`}>
+                <Box> {/* style="width: 20%; float:left"> */}
+                  <Avatar src={session.user?.image || ""} />
+                </Box>
+
+                <Box> {/* style="width: 80%; float:right"> */}
+                  <b>{session.user?.provider_data?.user_name}</b>
+                  <br/>
+                  <Text>{session.user?.name}</Text>
+                </Box>
+              </ActionList.Item>
+              <ActionList.Divider />
+              <ActionList.Item
+                onSelect={() => signOut()}
+              >
+                Sign out
+              </ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </>
     );
   }
 
