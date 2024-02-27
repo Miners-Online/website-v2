@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/api";
 import { Post } from "@/interfaces/post";
 import { MarkdownPreview } from "@/lib/markdown";
-import { Box, UnderlineNav } from "@primer/react";
+import { Box, PageLayout, UnderlineNav, Text, LabelGroup, Label, Link } from "@primer/react";
 import { BookIcon } from "@primer/octicons-react";
 
 type Props = {
@@ -28,24 +28,62 @@ export default function Blog({ post }: Props) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main>
-        <Box sx={{
-          m: 7,
-          borderWidth: 1,
-          borderStyle: 'solid',
-          borderColor: 'border.default',
-          borderRadius: 6
-        }}>
-          <UnderlineNav aria-label="Repository">
-            <UnderlineNav.Item aria-current="page" icon={BookIcon}>
-              README
-            </UnderlineNav.Item>
-          </UnderlineNav>
-          <Box sx={{
-            p: 5
-          }}>
-            <MarkdownPreview source={content}/>
-          </Box>
-        </Box>
+        <PageLayout>
+          <PageLayout.Header>
+
+          </PageLayout.Header>
+          <PageLayout.Content>
+            <Box sx={{
+              // mr: 4,
+              ml: 4,
+              borderWidth: 1,
+              borderStyle: 'solid',
+              borderColor: 'border.default',
+              borderRadius: 2
+            }}>
+              <UnderlineNav aria-label="Article">
+                <UnderlineNav.Item aria-current="page" icon={BookIcon}>
+                  README
+                </UnderlineNav.Item>
+              </UnderlineNav>
+              <Box sx={{
+                p: 5,
+              }}>
+                <MarkdownPreview source={content}/>
+              </Box>
+            </Box>
+          </PageLayout.Content>
+          <PageLayout.Pane>
+            <Box sx={{display: 'flex', flexDirection: 'column', gap: 3}}>
+              <Box>
+                <Text sx={{fontSize: 0, display: 'block', color: 'fg.muted'}}>About</Text>
+              </Box>
+              <Box>
+                <Text sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted'}}>Title</Text>
+                <Text sx={{fontSize: 0, color: 'fg.muted', lineHeight: 'condensed'}}>{post.title}</Text>
+              </Box>
+              <Box>
+                <Text sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted'}}>Date published</Text>
+                <Text sx={{fontSize: 0, color: 'fg.muted', lineHeight: 'condensed'}}>{post.date}</Text>
+              </Box>
+              <Box role="separator" sx={{width: '100%', height: 1, backgroundColor: 'border.default'}}></Box>
+              <Box>
+                <Text sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted'}}>Authors</Text>
+                {/* <Text sx={{fontSize: 0, color: 'fg.muted', lineHeight: 'condensed'}}>{post.date}</Text> */}
+                <LabelGroup sx={{mt: 3}}>
+                  {post.authors.map((author) => (
+                    <Label variant="accent" key={`la_${author}`}>
+                      <Link href={`https://github.com/${author}`}>{author}</Link>
+                    </Label>
+                  ))}
+                </LabelGroup>
+              </Box>
+            </Box>
+          </PageLayout.Pane>
+          <PageLayout.Footer>
+
+          </PageLayout.Footer>
+        </PageLayout>
       </main>
     </>
   );
@@ -64,9 +102,10 @@ export async function getStaticProps({ params }: Params) {
     props: {
       post: {
         title: post.title,
-        date: post.date.toString(),
+        date: post.date.toISOString(),
         slug: post.slug,
         content: post.content,
+        authors: post.authors
       },
     },
   };
