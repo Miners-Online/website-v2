@@ -31,8 +31,8 @@ export default function App({
         <SessionProvider session={session}>
           <Box
             backgroundColor={"canvas.default"}
-            minHeight={"100vh"}
-            width={"100vw"}
+            minHeight={"100%"}
+            width={"100%"}
             position={"absolute"}
             top={0}
             left={0}

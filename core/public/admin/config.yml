@@ -1,0 +1,31 @@
+backend:
+  name: github
+  branch: main
+  repo: Miners-Online/web-content
+  commit_messages:
+    create: "docs: Create {{collection}} '{{slug}}'"
+    update: "docs: Update {{collection}} '{{slug}}'"
+    delete: "docs: Delete {{collection}} '{{slug}}'"
+    uploadMedia: "docs: Upload '{{path}}'"
+    deleteMedia: "docs: Delete '{{path}}'"
+    openAuthoring: "docs: '{{message}}'"
+  squash_merges: true
+media_folder: public/img
+public_folder: public
+publish_mode: editorial_workflow
+site_url: https://minersonline.uk
+logo_url: https://minersonline.uk/favicon.svg
+slug:
+  encoding: 'ascii'
+  clean_accents: true
+  sanitize_replacement: '_'
+collections:
+  - label: 'Blog'
+    name: 'blog'
+    folder: 'content/blog'
+    create: true
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string', required: true }
+      - { label: 'Published Date', name: 'date', widget: 'datetime', required: true }
+      - { label: 'Description', name: 'description', widget: 'string', required: true }
+      - { label: 'Body', name: 'body', widget: 'markdown', required: true }

@@ -1,0 +1,3 @@
+[submodule "core/content"]
+	path = core/docs
+	url = https://github.com/Miners-Online/web-content

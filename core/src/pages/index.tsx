@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useSession } from "next-auth/react";
 import { Box } from "@primer/react";
 import Markdown from "react-markdown";
-import remarkGfm from 'remark-gfm'
+import remarkGfm from 'remark-gfm';
 
 export default function Home() {
   const { data } = useSession();
