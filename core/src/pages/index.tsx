@@ -13,7 +13,6 @@ export default function Home() {
         <title>Home | Miners Online</title>
         <meta name="description" content="The official homepage for Miners Online." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
         <Box
