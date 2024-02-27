@@ -81,19 +81,24 @@ function Authentication() {
         >
           <ActionMenu>
             <ActionMenu.Anchor>
-              <Avatar size={35} src={session.user?.image || ""} />
+              <Avatar
+                size={35}
+                src={session.user?.image || ""}
+              />
             </ActionMenu.Anchor>
             <ActionMenu.Overlay width="medium">
               <ActionList>
                 <ActionList.Item onSelect={() => window.location.href=`${session.user?.provider_data?.profile_page}`}>
-                  <Box> {/* style="width: 20%; float:left"> */}
-                    <Avatar src={session.user?.image || ""} />
-                  </Box>
+                  <Box sx={{display: 'flex'}}>
+                    <Box sx={{mr: 2}}>
+                      <Avatar size={40} src={session.user?.image || ""} />
+                    </Box>
 
-                  <Box> {/* style="width: 80%; float:right"> */}
-                    <b>{session.user?.provider_data?.user_name}</b>
-                    <br/>
-                    <Text>{session.user?.name}</Text>
+                    <Box>
+                      <b>{session.user?.provider_data?.user_name}</b>
+                      <br/>
+                      <Text>{session.user?.name}</Text>
+                    </Box>
                   </Box>
                 </ActionList.Item>
                 <ActionList.Divider />
