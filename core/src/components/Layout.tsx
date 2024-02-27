@@ -100,7 +100,6 @@ function Authentication() {
                 <ActionList.Item
                   onSelect={() => {
                     setColorMode("night");
-                    document.body.setAttribute("data-theme", "dark");
                   }}
                 >
                   Set dark mode
@@ -108,7 +107,6 @@ function Authentication() {
                 <ActionList.Item
                   onSelect={() => {
                     setColorMode("day");
-                    document.body.setAttribute("data-theme", "light");
                   }}
                 >
                   Set light mode

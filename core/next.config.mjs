@@ -1,9 +1,13 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-    // experimental: {
-    //     esmExternals: 'loose',
-    // },
-    transpilePackages: ['react-markdown-preview']
-};
+import removeImports from 'next-remove-imports'
 
-export default nextConfig;
+/** @type {function(import("next").NextConfig): import("next").NextConfig}} */
+const removeImportsFun = removeImports({
+  // test: /node_modules([\s\S]*?)\.(tsx|ts|js|mjs|jsx)$/,
+  // matchImports: "\\.(less|css|scss|sass|styl)$"
+});
+
+export default removeImportsFun({
+  webpack(config, options) {
+    return config
+  },
+});

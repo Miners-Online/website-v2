@@ -1,8 +1,7 @@
 import Head from "next/head";
 import { useSession } from "next-auth/react";
 import { Box } from "@primer/react";
-import Markdown from "react-markdown";
-import remarkGfm from 'remark-gfm';
+import { MarkdownPreview } from "@/lib/markdown";
 
 export default function Home() {
   const { data } = useSession();
@@ -33,7 +32,7 @@ export default function Home() {
       </main>
 
       <div className='markdown-body'>
-        <Markdown remarkPlugins={[remarkGfm]}>{markdown}</Markdown>
+        <MarkdownPreview source={markdown}/>
       </div>
     </>
   );

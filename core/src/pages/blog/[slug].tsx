@@ -1,32 +1,18 @@
 import Head from "next/head";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/api";
-import markdownToHtml from "@/lib/markdownToHtml";
 import { Post } from "@/interfaces/post";
-import { ReactNode, useEffect, useState } from "react";
+import { MarkdownPreview } from "@/lib/markdown";
 
 type Props = {
   post: Post;
 };
 
 export default function Blog({ post }: Props) {
-  const [content, setContent] = useState<ReactNode | undefined>(undefined);
-
   if (!post?.slug) {
     return notFound();
   }
   const title = `${post.title} | Miners Online`;
-
-  useEffect(() => {
-    async function getContent() {
-      const val = (await markdownToHtml(post.content)).value as string;
-      setContent(<div className='markdown-body' dangerouslySetInnerHTML={{__html: val}}></div>);
-    };
-
-    if (!content) {
-      getContent();
-    }
-  }, []);
 
   return (
     <>
@@ -36,7 +22,7 @@ export default function Blog({ post }: Props) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {content}
+      <MarkdownPreview source={post.content}/>
     </>
   );
 }
