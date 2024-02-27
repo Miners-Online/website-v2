@@ -49,7 +49,7 @@ function Navigation() {
         </Header.Link>
       </Header.Item>
         {pages.map((page) => (
-          <Header.Item>
+          <Header.Item key={page.name}>
             <Header.Link
               href={page.path}
             >
