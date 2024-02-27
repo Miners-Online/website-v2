@@ -29,11 +29,11 @@ export default function Home() {
         >
           {data ? JSON.stringify(data, null, 2) : "Sign in to get started!"}
         </Box>
-      </main>
 
-      <div className='markdown-body'>
-        <MarkdownPreview source={markdown}/>
-      </div>
+        <div className='markdown-body'>
+          <MarkdownPreview source={markdown}/>
+        </div>
+      </main>
     </>
   );
 }

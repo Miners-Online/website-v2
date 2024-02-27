@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/api";
 import { Post } from "@/interfaces/post";
 import { MarkdownPreview } from "@/lib/markdown";
+import { Box, UnderlineNav } from "@primer/react";
+import { BookIcon } from "@primer/octicons-react";
 
 type Props = {
   post: Post;
@@ -13,6 +15,10 @@ export default function Blog({ post }: Props) {
     return notFound();
   }
   const title = `${post.title} | Miners Online`;
+  const content = `
+  # ${post.title}
+  ${post.content}
+  `
 
   return (
     <>
@@ -22,7 +28,26 @@ export default function Blog({ post }: Props) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <MarkdownPreview source={post.content}/>
+      <main>
+        <Box sx={{
+          m: 7,
+          borderWidth: 1,
+          borderStyle: 'solid',
+          borderColor: 'border.default',
+          borderRadius: 6
+        }}>
+          <UnderlineNav aria-label="Repository">
+            <UnderlineNav.Item aria-current="page" icon={BookIcon}>
+              README
+            </UnderlineNav.Item>
+          </UnderlineNav>
+          <Box sx={{
+            p: 5
+          }}>
+            <MarkdownPreview source={content}/>
+          </Box>
+        </Box>
+      </main>
     </>
   );
 }

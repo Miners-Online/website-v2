@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@primer/octicons-react": "^19.8.0",
     "@primer/react": "^36.9.0",
     "@uiw/react-markdown-preview": "^5.0.7",
     "gray-matter": "^4.0.3",
