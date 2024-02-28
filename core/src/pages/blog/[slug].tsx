@@ -24,7 +24,7 @@ export default function Blog({ post }: Props) {
     <>
       <Head>
         <title>{title}</title>
-        <meta name="description" content="The official homepage for Miners Online." />
+        <meta name="description" content={post.description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main>
@@ -66,6 +66,10 @@ export default function Blog({ post }: Props) {
                 <Text sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted'}}>Date published</Text>
                 <Text sx={{fontSize: 0, color: 'fg.muted', lineHeight: 'condensed'}}>{post.date}</Text>
               </Box>
+              <Box>
+                <Text sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted'}}>Description</Text>
+                <Text sx={{fontSize: 0, color: 'fg.muted', lineHeight: 'condensed'}}>{post.description}</Text>
+              </Box>
               <Box role="separator" sx={{width: '100%', height: 1, backgroundColor: 'border.default'}}></Box>
               <Box>
                 <Text sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted'}}>Authors</Text>
@@ -104,6 +108,7 @@ export async function getStaticProps({ params }: Params) {
         title: post.title,
         date: post.date.toISOString(),
         slug: post.slug,
+        description: post.description,
         content: post.content,
         authors: post.authors
       },
