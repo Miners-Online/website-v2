@@ -132,7 +132,13 @@ function Authentication() {
 
   return (
     <Header.Item>
-      <Button variant="invisible" onClick={() => signIn("github")}>
+      <Button
+        variant="invisible"
+        onClick={() => signIn("github")}
+        sx={{
+          color: 'fg.onEmphasis'
+        }}
+      >
         Sign in
       </Button>
     </Header.Item>
